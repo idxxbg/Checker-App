@@ -4,8 +4,7 @@ import '../../domain/models/guest.dart';
 
 part 'isar_guest.g.dart';
 
-@collection 
-
+@collection
 class IsarGuest {
   Id id = Isar.autoIncrement;
   late String name;
@@ -19,12 +18,23 @@ class IsarGuest {
 
   // chuyen doi tuong isar -> ve dang app co the doc duoc
   Guest toDomain() {
-    return Guest(id: id, name: name, phone: phone, sex: sex, imageFile: imageFile, uid: uid, checkInTime: checkInTime,);
+    return Guest(
+      id: id,
+      name: name,
+      phone: phone,
+      sex: sex,
+      uid: uid,
+      checkInTime: checkInTime,
+      checkOutTime: checkOutTime,
+      imageFile: imageFile,
+      isCheckOut: isCheckOut,
+    );
   }
 
   // chuyen du lieu tu doi tuong Guest trong app -> Isar co the luu tru
   static IsarGuest fromDomain(Guest guest) {
-    return IsarGuest()  ..id = guest.id
+    return IsarGuest()
+      ..id = guest.id
       ..name = guest.name
       ..phone = guest.phone
       ..sex = guest.sex

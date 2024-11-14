@@ -22,16 +22,18 @@ class DetailView extends StatelessWidget {
       width: 400,
       padding: paddingScreen,
       decoration: BoxDecoration(
-          // color: Colors.black.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(20),
-          gradient:const LinearGradient(
-              begin: Alignment.bottomLeft,
-              colors: [bgblue, bgwhite, bgpurper])),
+        // color: Colors.black.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(20),
+        gradient: const LinearGradient(
+          begin: Alignment.bottomLeft,
+          colors: [bgblue, bgwhite, bgpurper],
+        ),
+      ),
       child: SingleChildScrollView(
         child: Column(
           children: [
             SizedBox(
-              height: 120,
+              height: 220,
               child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
                   child: Image.file(File(a.imageFile))),
@@ -67,7 +69,7 @@ class DetailView extends StatelessWidget {
                 size: 40,
               ),
               title: a.isCheckOut
-                  ? const Text("Đã check Out vào lúc")
+                  ? const Text("Đã check Out vào lúc: ")
                   : const Text("Chưa check Out"),
               subtitle: a.isCheckOut
                   ? Text(
@@ -79,8 +81,10 @@ class DetailView extends StatelessWidget {
                 Icons.transgender,
                 size: 40,
               ),
-              title: Text(a.sex),
+              title: const Text('Giơí tính: '),
+              subtitle: Text(a.sex),
             ),
+            Text(a.isCheckOut.toString()),
             const Gap(20),
           ],
         ),

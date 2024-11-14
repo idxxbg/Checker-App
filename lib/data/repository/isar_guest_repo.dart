@@ -38,7 +38,6 @@ class IsarGuestRepo implements GuestRepo {
   @override
   Future<void> upgradeGuest(Guest guest) async {
     // final Guest? guest = await db.isarGuests.filter().uidEqualTo(nfcID).findFirst();
-
     final updateGuest = IsarGuest.fromDomain(guest);
     // lưu vào db
     return db.writeTxn(() => db.isarGuests.put(updateGuest));
@@ -58,10 +57,12 @@ class IsarGuestRepo implements GuestRepo {
 
   // CHECK OUT GUEST
   @override
-  Future<void> checkOutGuest(Guest guest) {
-    // chuyển về dạng isar
-    final checkOutGuest = IsarGuest.fromDomain(guest);
-    // lưu vào data base
-    return db.writeTxn(() => db.isarGuests.put(checkOutGuest));
+  Future<void> checkOutGuest(Guest guestout) async {
+    final guestOut = IsarGuest.fromDomain(guestout);
+
+    // Ensure the transaction is committed
+    await db.writeTxn(() async {
+      await db.isarGuests.put(guestOut);
+    });
   }
 }

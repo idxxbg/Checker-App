@@ -10,7 +10,7 @@ abstract class GuestRepo {
   // Find nfcid
   Future<Guest?> userExistByNfcid(String nfc);
   // Check out Guest
-  Future<void> checkOutGuest(Guest guest);
+  Future<void> checkOutGuest(Guest guestout);
   // Delete the Guest
   Future<void> deleteGuest(Guest guest);
 }

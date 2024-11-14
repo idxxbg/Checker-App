@@ -15,8 +15,8 @@ class Guest {
   String sex;
   String imageFile;
   String uid;
-  DateTime? checkOutTime;
   DateTime? checkInTime;
+  DateTime? checkOutTime;
   bool isCheckOut;
   Guest({
     required this.id,
@@ -25,8 +25,8 @@ class Guest {
     required this.sex,
     required this.imageFile,
     required this.uid,
-    this.checkOutTime,
     required this.checkInTime,
+    this.checkOutTime,
     this.isCheckOut = false,
   });
 
@@ -38,8 +38,8 @@ class Guest {
       sex: sex,
       imageFile: imageFile,
       uid: uid,
-      checkOutTime: DateTime.now(),
       checkInTime: checkInTime,
+      checkOutTime: DateTime.now(),
       isCheckOut: true,
     );
   }

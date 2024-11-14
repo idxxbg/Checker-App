@@ -34,7 +34,7 @@ class _ListScreenState extends State<ListScreen> {
       }
     } catch (e) {
       // Xử lý lỗi nếu có
-      print("Có lỗi xảy ra khi quét NFC: $e");
+      // print("Có lỗi xảy ra khi quét NFC: $e");
     }
     nfcID = '';
   }
@@ -56,8 +56,8 @@ class _ListScreenState extends State<ListScreen> {
           MaterialButton(
               onPressed: () {
                 Navigator.pop(context);
-                context.read<GuestCubit>().checkOutGuest(guest);
-                showMessageCheckGuest('Check out cho khách.');
+                context.read<GuestCubit>().checkOut(guest);
+                showMessageCheckGuest('Đã Check Out cho khách.');
               },
               child: const Text("OK"))
         ],
@@ -85,6 +85,7 @@ class _ListScreenState extends State<ListScreen> {
           length: 2,
           child: Scaffold(
             floatingActionButton: FloatingActionButton(
+              tooltip: 'Check Out',
               onPressed: () async {
                 showModalBottomSheet(
                   isDismissible: true,
@@ -109,12 +110,12 @@ class _ListScreenState extends State<ListScreen> {
                             children: [
                               Text.rich(
                                 TextSpan(
-                                  text: "Mời quét thẻ: ",
+                                  text: "Mời quét thẻ để Check Out: ",
                                   style: TextStyle(
                                       fontSize: 25,
                                       fontWeight: bold,
                                       color: Colors.blue),
-                                  children: [],
+                                  // children: [ ],
                                 ),
                               ),
                               nfcID == ""

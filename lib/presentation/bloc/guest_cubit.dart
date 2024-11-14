@@ -11,7 +11,13 @@ class GuestCubit extends Cubit<List<Guest>> {
   // LOAD
   Future<void> fetchData() async {
     final guestList = await guestRepo.fetchData();
+
     emit(guestList);
+
+    print(guestList.length);
+    for (var i in guestList) {
+      print('${i.name}, ${i.isCheckOut}');
+    }
   }
 
   //ADD - Check In
@@ -54,10 +60,10 @@ class GuestCubit extends Cubit<List<Guest>> {
   }
 
   // Check out
-  Future<void> checkOutGuest(Guest guest) async {
+  Future<void> checkOut(Guest guest) async {
     Guest checkOutGuest = guest.guestCheckout();
     await guestRepo.checkOutGuest(checkOutGuest);
-    // fetch data
+
     fetchData();
   }
 }
