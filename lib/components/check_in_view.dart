@@ -16,39 +16,50 @@ class CheckInView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      physics: const BouncingScrollPhysics(),
-      itemCount: guestList.length,
-      itemBuilder: (BuildContext context, i) {
-        final a = guestList[i];
-        final bool = isCheckOut == a.isCheckOut;
+    return RefreshIndicator(
+      backgroundColor: Colors.black38,
+      color: Colors.white70,
+      onRefresh: () async {
+        // Replace this delay with the code to be executed during refresh
+        // and return a Future when code finishes execution.
+        context.read<GuestCubit>().fetchData();
+        // return Future<void>.delayed(const Duration(seconds: 3));
+      },
+      child: ListView.builder(
+        physics: const AlwaysScrollableScrollPhysics(),
+        // physics: const BouncingScrollPhysics(),
+        itemCount: guestList.length,
+        itemBuilder: (BuildContext context, i) {
+          final a = guestList[i];
+          final bool = isCheckOut == a.isCheckOut;
 
-        return Visibility(
-          visible: bool,
-          child: Padding(
-            padding: paddingScreen,
-            child: Card(
-              elevation: 0,
-              color: Colors.black26,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: ListTile(
-                onLongPress: () => context.read<GuestCubit>().deleteData(a),
-                title: Text(a.name),
-                subtitle: Text(a.phone),
-                trailing: IconButton(
-                  onPressed: () => showBottomSheet(
-                      backgroundColor: Colors.transparent,
-                      builder: (_) => DetailView(a: a),
-                      context: context),
-                  icon: const Icon(Icons.info_outline_rounded),
+          return Visibility(
+            visible: bool,
+            child: Padding(
+              padding: paddingScreen,
+              child: Card(
+                elevation: 0,
+                color: Colors.black26,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: ListTile(
+                  onLongPress: () => context.read<GuestCubit>().deleteData(a),
+                  title: Text(a.name),
+                  subtitle: Text(a.phone),
+                  trailing: IconButton(
+                    onPressed: () => showBottomSheet(
+                        backgroundColor: Colors.transparent,
+                        builder: (_) => DetailView(a: a),
+                        context: context),
+                    icon: const Icon(Icons.info_outline_rounded),
+                  ),
                 ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
